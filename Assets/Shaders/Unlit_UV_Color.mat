@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Unlit_VFMat
-  m_Shader: {fileID: 4800000, guid: aafeacec0602f6e42bd78f8b4a2d3363, type: 3}
+  m_Name: Unlit_UV_Color
+  m_Shader: {fileID: 4800000, guid: b73b99126deec4e4a99ecd1ef944f710, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -28,9 +28,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats:
-    - _ScaleUVX: 1
-    - _ScaleUVY: 1
+    m_Floats: []
     m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1
