@@ -24,7 +24,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 2bca6b9fc9fa5bc4185740d25314ef2a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -33,6 +33,6 @@ Material:
     - _Freq: 1.15
     - _Speed: 60.8
     m_Colors:
-    - _Tint: {r: 1, g: 1, b: 1, a: 1}
+    - _Tint: {r: 0.031149892, g: 0.86481386, b: 0.9433962, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

@@ -33,6 +33,6 @@ Material:
     - _Freq: 3
     - _Speed: 10
     m_Colors:
-    - _Tint: {r: 1, g: 1, b: 1, a: 1}
+    - _Tint: {r: 0.087086126, g: 0.27201822, b: 0.9716981, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

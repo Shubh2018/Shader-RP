@@ -11,7 +11,7 @@ Shader "Custom/Outline 1"
         Pass
         {
           CGPROGRAM
-          #pragma surface surf Lambert vertex:vert
+          #pragma surface surf Lambert
 
           #pragma target 3.0
 
