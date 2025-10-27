@@ -32,11 +32,14 @@ Shader "Unlit/QuenShield"
         Pass
         {
             CGPROGRAM
+            #if !defined(TESSELLATION_CGINC_INCLUDED)
+            #define  TESSELLATION_CGINC_INCLUDED
+            #endif
             #pragma target 5.0
             
             #pragma vertex vert
             #pragma fragment frag
-            #pragma tessellate tess
+            #pragma hull hullprogram
 
             #pragma tessphong _Phong
 
@@ -69,9 +72,41 @@ Shader "Unlit/QuenShield"
                 float4 worldPos : TEXCOORD2;
             };
 
-            float4 tess(appdata v0, appdata v1, appdata v2)
+            struct TessellationFactors
             {
-                return UnityEdgeLengthBasedTess(v0.vertex, v1.vertex, v2.vertex, _Tess);
+                float edge[3] : SV_TessFactor;
+                float inside : SV_InsideTessFactor;
+            };
+
+            [UNITY_domain("tri")]
+            [UNITY_outputcontrolpoints(3)]
+            [UNITY_outputtopology("triangle_cw")]
+            [UNITY_partitioning("integer")]
+            [UNITY_patchconstantfunc("PatchConstant")]
+            v2f hullprogram(InputPatch<v2f, 3> patch, uint id : SV_OutputControlPointID)
+            {
+                return patch[id];
+            }
+
+            TessellationFactors PatchConstant(InputPatch<v2f, 3> patch)
+            {
+                TessellationFactors f;
+                f.edge[0] = 1;
+                f.edge[1] = 1;
+                f.edge[2] = 1;
+                f.inside = 1;
+                return f;
+            }
+
+            [UNITY_domain("tri")]
+            void domainProgram(TessellationFactors factors, OutputPatch<v2f, 3> patch, float3 barycentricCoordinates : SV_DomainLocation)
+            {
+                v2f data;
+
+                #define INTERPOLATE(fieldName) data.fieldName = patch[0].fieldName * barycentricCoordinates.x + patch[1].fieldName * barycentricCoordinates.y + patch[2].fieldName * barycentricCoordinates.z
+
+                INTERPOLATE(vertex);
+                INTERPOLATE(normal);
             }
             
             v2f vert (appdata v)
