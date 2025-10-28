@@ -97,17 +97,6 @@ Shader "Unlit/QuenShield"
                 f.inside = 1;
                 return f;
             }
-
-            [UNITY_domain("tri")]
-            void domainProgram(TessellationFactors factors, OutputPatch<v2f, 3> patch, float3 barycentricCoordinates : SV_DomainLocation)
-            {
-                v2f data;
-
-                #define INTERPOLATE(fieldName) data.fieldName = patch[0].fieldName * barycentricCoordinates.x + patch[1].fieldName * barycentricCoordinates.y + patch[2].fieldName * barycentricCoordinates.z
-
-                INTERPOLATE(vertex);
-                INTERPOLATE(normal);
-            }
             
             v2f vert (appdata v)
             {
@@ -126,6 +115,19 @@ Shader "Unlit/QuenShield"
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 
                 return o;
+            }
+
+            [UNITY_domain("tri")]
+            appdata domainProgram(TessellationFactors factors, OutputPatch<v2f, 3> patch, float3 barycentricCoordinates : SV_DomainLocation)
+            {
+                v2f data;
+
+                #define INTERPOLATE(fieldName) data.fieldName = patch[0].fieldName * barycentricCoordinates.x + patch[1].fieldName * barycentricCoordinates.y + patch[2].fieldName * barycentricCoordinates.z
+
+                INTERPOLATE(vertex);
+                INTERPOLATE(normal);
+
+                return vert(data);
             }
 
             half4 frag (v2f i) : SV_Target
